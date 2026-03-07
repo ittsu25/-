@@ -1,4 +1,5 @@
 import streamlit as st
+st.set_page_config(page_title="古文単語315 マスター", page_icon="📝")
 import pandas as pd
 import random
 import base64
@@ -126,3 +127,4 @@ if st.session_state.answered:
         make_question()
 
         st.rerun()
+
