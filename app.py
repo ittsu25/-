@@ -46,10 +46,14 @@ except FileNotFoundError:
     pass
 
 # --- 1. データの読み込み ---
+# --- 1. データの読み込み ---
 try:
-    df = pd.read_csv('kobun.csv', encoding='shift_jis')
+    df = pd.read_csv('kobun.csv', encoding='utf-8-sig')
 except UnicodeDecodeError:
-    df = pd.read_csv('kobun.csv', encoding='utf-8')
+    try:
+        df = pd.read_csv('kobun.csv', encoding='shift_jis')
+    except UnicodeDecodeError:
+        df = pd.read_csv('kobun.csv', encoding='utf-8')
 
 # --- 2. 10語ずつの出題範囲（グループ）を作成 ---
 group_labels = []
@@ -120,4 +124,5 @@ if st.session_state.answered:
     st.subheader(st.session_state.result_msg)
     if st.button("次の問題へ"):
         make_question()
+
         st.rerun()
